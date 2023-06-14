@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.noticeboard.mapper.LoginMapper">
-    <select id="">
+        <select id="boardCount" parameterType="Map" resultType="boolean">
+            SELECT count(*) FROM member WHERE member.id=#{userId} AND member.pwd=#{userPassword}
+        </select>
 
-    </select>
 
 </mapper>
