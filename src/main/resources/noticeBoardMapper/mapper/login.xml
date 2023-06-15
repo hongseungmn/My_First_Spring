@@ -3,9 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.noticeboard.mapper.LoginMapper">
-        <select id="boardCount" parameterType="Map" resultType="boolean">
-            SELECT count(*) FROM member WHERE member.id=#{userId} AND member.pwd=#{userPassword}
+        <select id="findByIdAndPassword" parameterType="memberDto" resultType="boolean">
+            SELECT COUNT(*) FROM member WHERE id = #{id}
         </select>
-
-
 </mapper>

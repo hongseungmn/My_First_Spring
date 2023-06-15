@@ -78,6 +78,4 @@
         <li class="page-item"><a class="page-link" href="#">Next</a></li>
     </ul>
 </nav>
-<script>
-</script>
 <jsp:include page="/WEB-INF/views/template/Footer.jsp"/>

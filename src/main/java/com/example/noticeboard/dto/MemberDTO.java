@@ -12,7 +12,6 @@ import org.springframework.core.annotation.AliasFor;
 @NoArgsConstructor
 @Alias("memberDto")
 public class MemberDTO {
-  private String no;
   private String id;
   private String pwd;
 }

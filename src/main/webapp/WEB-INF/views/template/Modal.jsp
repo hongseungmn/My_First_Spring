@@ -7,11 +7,11 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form class="form-inline justify-content-center needs-validation " action="login/loginProcess.do" novalidate >
+                <form class="form-inline justify-content-center needs-validation " action="login/loginProcess.do" method="post" novalidate >
                     <div class="d-flex flex-wrap mt-2">
                         <label for="UserPassword" class="mr-2">아이디</label>
                         <div class="d-flex">
-                            <input type="text" class="form-control" placeholder="아이디를 입력하세요" id="userId" name="userId" autoComplete="off" required>
+                            <input type="text" class="form-control" placeholder="아이디를 입력하세요" id="userId" name="id" autoComplete="off" required>
                             <div class="invalid-feedback">아이디를 입력하세요.</div>
                         </div>
                     </div>
@@ -19,7 +19,7 @@
                     <div class="d-flex flex-wrap mt-2">
                         <label for="UserPassword" class="mr-2">비밀번호</label>
                         <div class="d-flex flex-wrap">
-                            <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" id="userPassword" name="userPassword" autoComplete="off" required>
+                            <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" id="userPassword" name="pwd" autoComplete="off" required>
                             <div class="invalid-feedback">비밀번호를 입력하세요.</div>
                         </div>
                     </div>

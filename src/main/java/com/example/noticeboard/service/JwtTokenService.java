@@ -1,16 +1,15 @@
 package com.example.noticeboard.service;
 
 import io.jsonwebtoken.*;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 
 @Component
@@ -18,8 +17,8 @@ public class JwtTokenService {
 
   @Value("${jwt.password}")
   private String secretKey;
-
-  public String createToken(String username, String keyPath, String key, Map<String, Object> payloads, long expirationTime) {
+  private static final long EXPIRATION_TIME= 60 * 60 * 1000;
+  public String createToken(String username) {
     long currentTimeMillis = System.currentTimeMillis();
     Map<String, Object> headers = new HashMap<>();
     headers.put("typ","JWT");
@@ -27,10 +26,9 @@ public class JwtTokenService {
 
     JwtBuilder builder = Jwts.builder()
             .setHeader(headers)
-            .setClaims(payloads)
             .setSubject(username)
             .setIssuedAt(new Date(currentTimeMillis))
-            .setExpiration(new Date(expirationTime))
+            .setExpiration(new Date())
             .signWith(SignatureAlgorithm.HS256,secretKey.getBytes());
 
     return builder.compact();
@@ -59,7 +57,7 @@ public class JwtTokenService {
       Jws<Claims> claims = Jwts.parser()
               .setSigningKey(secretKey.getBytes("UTF-8"))
               .parseClaimsJws(token);
-      return !claims.getBody().getExpiration().before(new Date());
+      return !claims.getBody().getExpiration().before(new Date(EXPIRATION_TIME));
     }
     catch (Exception e) {
       return false;
