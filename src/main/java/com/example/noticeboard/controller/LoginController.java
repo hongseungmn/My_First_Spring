@@ -28,10 +28,10 @@ public class LoginController {
   public String loginValidUser(HttpServletResponse response, MemberDTO dto, Model model) {
     if(loginService.isLogin(dto)) {
       response.addCookie(new Cookie("user-token",tokenService.createToken(dto.getId())));
+      model.addAttribute("IsMember",dto.getId());
       System.out.println("회원입니다");
     }
     else {
-      model.addAttribute("IsMember","NotMember");
       System.out.println("회원이 아닙니다");
     }
     return "redirect:/";
