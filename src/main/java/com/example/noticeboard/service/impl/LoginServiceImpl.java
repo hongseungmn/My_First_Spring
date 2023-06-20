@@ -18,4 +18,10 @@ public class LoginServiceImpl implements LoginService {
   public boolean isLogin(MemberDTO dto) {
     return mapper.findByIdAndPassword(dto);
   }
+
+  @Override
+  public void logout(String id) {
+
+  }
+
 }

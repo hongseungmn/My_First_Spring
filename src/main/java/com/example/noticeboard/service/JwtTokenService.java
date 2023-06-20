@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,21 +28,22 @@ public class JwtTokenService {
     JwtBuilder builder = Jwts.builder()
             .setHeader(headers)
             .setSubject(username)
+            .claim("uid",username)
             .setIssuedAt(new Date(currentTimeMillis))
-            .setExpiration(new Date())
+            .setExpiration(new Date(currentTimeMillis + EXPIRATION_TIME))
             .signWith(SignatureAlgorithm.HS256,secretKey.getBytes());
 
     return builder.compact();
   }
 
-  public Map<String,Object> getTokenPayloads(String token, String keyPath,String key) {
+  public String getTokenPayloads(String token) {
     Map<String, Object> claims = new HashMap<>();
     try {
       claims = Jwts.parser()
-              .setSigningKey(secretKey.getBytes("UTF-8"))
+              .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8))
               .parseClaimsJws(token)
               .getBody();
-      return claims;
+      return claims.get("uid").toString();
     }
     catch (ExpiredJwtException e) {
       claims.put("invalid-token","Validity period is expired");
@@ -49,22 +51,23 @@ public class JwtTokenService {
     catch (Exception e) {
       claims.put("invalid-token","Token is not valid");
     }
-    return claims;
+    return claims.get("invalid-token").toString();
   }
 
-  public boolean verifyToken(String token,String keyPath,String key) {
-    try {
-      Jws<Claims> claims = Jwts.parser()
-              .setSigningKey(secretKey.getBytes("UTF-8"))
-              .parseClaimsJws(token);
-      return !claims.getBody().getExpiration().before(new Date(EXPIRATION_TIME));
-    }
-    catch (Exception e) {
-      return false;
-    }
+  public boolean verifyToken(String token) {
+//    try {
+//      Jws<Claims> claims = Jwts.parser()
+//              .setSigningKey(secretKey.getBytes("UTF-8"))
+//              .parseClaimsJws(token);
+//      return !claims.getBody().getExpiration().before(new Date(EXPIRATION_TIME));
+//    }
+//    catch (Exception e) {
+//      return false;
+//    }
+    return true;
   }
 
-  public static String getToken(HttpServletRequest request, String cookieName) {
+  public String getToken(HttpServletRequest request, String cookieName) {
     Cookie[] cookies = request.getCookies();
     String token = "";
     if(cookies != null) {
@@ -77,9 +80,10 @@ public class JwtTokenService {
     return token;
   }
 
-  public static void removeToken(HttpServletRequest request, HttpServletResponse response) {
-    Cookie cookie = new Cookie(request.getServletContext().getInitParameter("COOKIE-NAME"),"");
-    cookie.setPath(request.getContextPath());
+  public void removeToken(HttpServletRequest request, HttpServletResponse response) {
+    Cookie cookie = new Cookie("User-Token","");
+    request.getSession().removeAttribute("UserId");
+    cookie.setPath("/");
     cookie.setMaxAge(0);
     response.addCookie(cookie);
   }

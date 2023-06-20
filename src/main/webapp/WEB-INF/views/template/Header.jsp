@@ -22,13 +22,14 @@
                 <li><a href="/" class="nav-link px-2 text-secondary">Hash-Tag</a></li>
             </ul>
             <div class="text-end">
-                <c:if test="${empty IsMember}">
+                <c:if test="${empty UserId}">
                     <button type="button" class="btn btn-outline-light me-2" data-toggle="modal" data-target="#LoginModal" data-backdrop="static">Login</button>
                 </c:if>
-                <c:if test="${not empty IsMember}">
-                    <button type="button" class="btn btn-outline-light me-2" data-backdrop="static">${IsMember}</button>
+                <c:if test="${not empty UserId}">
+                    <button type="button" class="btn btn-outline-light me-2" data-backdrop="static">${UserId}</button>
+                    <button type="button" class="btn btn-warning" onclick="location.href='login/logout.do'">LogOut</button>
                 </c:if>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+
             </div>
         </div>
     </div>

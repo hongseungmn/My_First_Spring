@@ -28,7 +28,8 @@ public class MybatisConfig {
       SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
       factoryBean.setDataSource(dataSource);
       factoryBean.setTypeAliasesPackage("com.example.noticeboard");
-      factoryBean.setMapperLocations(applicationContext.getResource("classpath:noticeBoardMapper/mapper/login.xml"));
+      factoryBean.setMapperLocations(applicationContext.getResource("classpath:noticeBoardMapper/mapper/main.xml"),
+                                     applicationContext.getResource("classpath:noticeBoardMapper/mapper/login.xml"));
       factory = factoryBean.getObject();
     }
     catch(Exception e){e.printStackTrace();}
