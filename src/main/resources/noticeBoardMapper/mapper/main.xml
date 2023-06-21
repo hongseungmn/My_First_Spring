@@ -3,7 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.noticeboard.mapper.MainMapper">
-    <select id="selectFoodList"  resultType="functionalFoodListDto">
-        SELECT * FROM FoodTable LIMIT 0,30
+    <select id="selectFoodList" parameterType="Map" resultType="functionalFoodListDto">
+        SELECT * FROM FoodTable ft
+        <where>
+            <if test="searchTags != null">
+                <foreach collection="searchTags" item="item" open="(" close=")" separator="AND" index="index">
+                    othertext LIKE CONCAT('%', #{item}, '%')
+                </foreach>
+            </if>
+        </where>
+        LIMIT 0, 30;
+    </select>
+
+    <select id="selectFoodOneByNo" parameterType="int" resultType="functionalFoodListDto">
+        SELECT * FROM FoodTable
+        WHERE no=#{no}
     </select>
 </mapper>

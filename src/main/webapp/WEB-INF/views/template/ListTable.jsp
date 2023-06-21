@@ -24,7 +24,7 @@
                     <p class="card-text">상품 요약</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn link-detail btn-outline-info">상품 보러 가기!</a>
+                    <a href='/detail.do?no=${record.no}' class="btn link-detail btn-outline-info">상품 보러 가기!</a>
                 </div>
             </div>
         <c:if test="${loop.count % 3 == 0}">
