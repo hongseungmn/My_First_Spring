@@ -22,9 +22,6 @@ public class MainListController {
   public String searchHome(Model model, @RequestParam(required = false, value = "searchTags") String tags,Map map ) {
     map.put("searchTags",tags.split("#"));
     List<FunctionalFoodListDTO> listData = mainService.selectFoodList(map);
-    for(FunctionalFoodListDTO dto : listData) {
-      System.out.println("dto.getOtherText()"+dto.getOtherText());
-    }
     model.addAttribute("listData",listData);
     return "Index";
   }
@@ -32,7 +29,6 @@ public class MainListController {
   public String detailPage(Model model, Map map, @RequestParam String no) {
     map.put("no",Integer.parseInt(no));
     FunctionalFoodListDTO listOne = mainService.selectFoodOneByNo(map);
-    System.out.println("listOne.getProductName() : "+listOne.getProductName());
     model.addAttribute("listOne",listOne);
     return "Detail";
   }

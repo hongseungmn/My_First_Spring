@@ -13,4 +13,8 @@ public interface MainMapper {
   List<FunctionalFoodListDTO> selectFoodList(Map map);
 
   FunctionalFoodListDTO selectFoodOneByNo(Map map);
+
+  List selectHitCountList(String no);
+
+  List selectDateList(String no);
 }

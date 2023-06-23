@@ -19,4 +19,14 @@
         SELECT * FROM FoodTable
         WHERE no=#{no}
     </select>
+    <select id="selectHitCountList" parameterType="String" resultType="int">
+        SELECT HITCOUNT FROM HITCOUNTS
+        WHERE NO = #{no}
+        ORDER BY HITDATE
+    </select>
+    <select id="selectDateList" parameterType="String" resultType="date">
+        SELECT HITDATE FROM HITCOUNTS
+        WHERE no = #{no}
+        ORDER BY HITDATE
+    </select>
 </mapper>

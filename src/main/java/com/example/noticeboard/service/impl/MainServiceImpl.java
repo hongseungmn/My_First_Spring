@@ -13,11 +13,11 @@ import java.util.Map;
 public class MainServiceImpl implements MainService {
 
   @Autowired
-  MainMapper mainService;
+  MainMapper mainMapper;
 
   @Override
   public List<FunctionalFoodListDTO> selectFoodList(Map map) {
-    List<FunctionalFoodListDTO> listDtos= mainService.selectFoodList(map);
+    List<FunctionalFoodListDTO> listDtos= mainMapper.selectFoodList(map);
     for( FunctionalFoodListDTO dto : listDtos) {
       System.out.println(dto.getProductName());
     }
@@ -26,7 +26,17 @@ public class MainServiceImpl implements MainService {
 
   @Override
   public FunctionalFoodListDTO selectFoodOneByNo(Map map) {
-    FunctionalFoodListDTO dto = mainService.selectFoodOneByNo(map);
+    FunctionalFoodListDTO dto = mainMapper.selectFoodOneByNo(map);
     return dto;
+  }
+
+  @Override
+  public List selectHitCountList(String no) {
+    return mainMapper.selectHitCountList(no);
+  }
+
+  @Override
+  public List selectDateList(String no) {
+    return mainMapper.selectDateList(no);
   }
 }
