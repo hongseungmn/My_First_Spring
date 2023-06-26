@@ -23,13 +23,11 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if(cookie.getName().equals("User-Token")) {
           token = cookie.getValue();
           if(tokenService.verifyToken(token)) {
-            System.out.println("tokenService.getTokenPayloads(token)"+tokenService.getTokenPayloads(token));
-            request.getSession().setAttribute("UserId",tokenService.getTokenPayloads(token));
+            request.setAttribute("UserId",tokenService.getTokenPayloads(token));
           }
         }
       }
     }
-
     return true;
   }
 }

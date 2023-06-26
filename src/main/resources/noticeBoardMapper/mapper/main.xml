@@ -29,4 +29,7 @@
         WHERE no = #{no}
         ORDER BY HITDATE
     </select>
+    <update id="updateHitcount" parameterType="String">
+        UPDATE DB.FoodTable SET DB.FoodTable.HITCOUNT  = DB.FoodTable.HITCOUNT + 1 where no = #{no}
+    </update>
 </mapper>

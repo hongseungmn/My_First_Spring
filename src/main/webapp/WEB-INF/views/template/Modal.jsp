@@ -38,7 +38,7 @@
     form.onsubmit= function(e) {
         if(!form.checkValidity()) {
             form.classList.add('was-validated');
-            return false
+            return false;
         }
         return true;
     }

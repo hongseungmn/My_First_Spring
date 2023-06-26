@@ -17,17 +17,13 @@ public class MainServiceImpl implements MainService {
 
   @Override
   public List<FunctionalFoodListDTO> selectFoodList(Map map) {
-    List<FunctionalFoodListDTO> listDtos= mainMapper.selectFoodList(map);
-    for( FunctionalFoodListDTO dto : listDtos) {
-      System.out.println(dto.getProductName());
-    }
-    return listDtos;
+    return mainMapper.selectFoodList(map);
   }
 
   @Override
   public FunctionalFoodListDTO selectFoodOneByNo(Map map) {
-    FunctionalFoodListDTO dto = mainMapper.selectFoodOneByNo(map);
-    return dto;
+    mainMapper.updateHitcount(map.get("no").toString());
+    return mainMapper.selectFoodOneByNo(map);
   }
 
   @Override

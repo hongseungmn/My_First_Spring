@@ -55,16 +55,16 @@ public class JwtTokenService {
   }
 
   public boolean verifyToken(String token) {
-//    try {
-//      Jws<Claims> claims = Jwts.parser()
-//              .setSigningKey(secretKey.getBytes("UTF-8"))
-//              .parseClaimsJws(token);
-//      return !claims.getBody().getExpiration().before(new Date(EXPIRATION_TIME));
-//    }
-//    catch (Exception e) {
-//      return false;
-//    }
-    return true;
+    long currentTimeMillis = System.currentTimeMillis();
+    try {
+      Jws<Claims> claims = Jwts.parser()
+              .setSigningKey(secretKey.getBytes("UTF-8"))
+              .parseClaimsJws(token);
+      return !claims.getBody().getExpiration().before(new Date(0));
+    }
+    catch (Exception e) {
+      return false;
+    }
   }
 
   public String getToken(HttpServletRequest request, String cookieName) {

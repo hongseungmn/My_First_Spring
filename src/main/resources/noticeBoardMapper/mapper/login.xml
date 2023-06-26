@@ -6,4 +6,23 @@
         <select id="findByIdAndPassword" parameterType="memberDto" resultType="boolean">
             SELECT COUNT(*) FROM member WHERE id = #{id}
         </select>
+        <select id="findMemberInfoById" parameterType="String" resultType="memberInfoDto">
+            SELECT * FROM memberInfo WHERE id = #{id}
+        </select>
+
+        <update id="updateMemberInfo" parameterType="memberInfoDto">
+            UPDATE memberInfo
+            <set>
+                <if test="nickname != null">
+                    nickname = #{nickname},
+                </if>
+                <if test="email != null">
+                    email = #{email},
+                </if>
+                <if test="address != null">
+                    address = #{address},
+                </if>
+            </set>
+            WHERE id=#{id}
+        </update>
 </mapper>
