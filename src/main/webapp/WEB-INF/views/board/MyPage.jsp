@@ -70,7 +70,7 @@
                     <input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요.">
                 </div>
 
-                
+
                 <hr class="mb-4">
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="aggrement" required>
