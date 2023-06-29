@@ -8,7 +8,7 @@
         opacity: 1;
     }
 </style>
-<div class="container mt-5">
+<div class="container mt-1">
     <c:if test="${empty listData}" var="listIsEmpty">
         등록된 제품이 없습니다
     </c:if>

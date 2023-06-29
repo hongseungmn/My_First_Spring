@@ -77,7 +77,7 @@
                     <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
                 </div>
                 <div class="mb-4"></div>
-                <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">수정 완료</button>
             </form>
         </div>
     </div>
@@ -86,33 +86,6 @@
     </footer>
 </div>
 <script>
-    /*window.addEventListener('load', () => {
-        const forms = document.getElementsByClassName('validation-form');
-
-        Array.prototype.filter.call(forms, (form) => {
-            form.addEventListener('submit', function (event) {
-
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                else{
-                    Swal.fire({
-                        title: 'Good job!',
-                        text: 'You clicked the button!',
-                        icon: 'success',
-                        showConfirmButton: false
-                    });
-                    setTimeout(function() {
-                        form.submit();  // 3초 후에 form 전송
-                    }, 3000);
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-    */
-
     window.addEventListener('load', () => {
         const forms = document.getElementsByClassName('validation-form');
 

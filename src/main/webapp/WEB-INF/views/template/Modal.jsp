@@ -27,6 +27,7 @@
                         <button id="loginButton" type="submit" class="btn btn-primary">로그인</button>
                         <button id="joinButton" type="submit" class="btn btn-light border">회원가입</button>
                         <button id="kakaoButton" type="button" class="btn btn-warning" onClick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=d7d2c3ee3262ea4ef749ce998fd7bea6&redirect_uri=http://127.0.0.1:9090/kakaoLogin.do&response_type=code'">카카오 로그인</button>
+                        <button id="naverButton" type="button" class="btn btn-info" onClick="location.href='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=GOd0HW6oGiOPdNnViMLz&redirect_uri=http://127.0.0.1:9090/naverLogin.do'">네이버 로그인</button>
                     </div>
                 </form>
             </div>

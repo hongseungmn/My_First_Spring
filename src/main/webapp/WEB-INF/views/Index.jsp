@@ -4,7 +4,12 @@
 
 <jsp:include page="/WEB-INF/views/template/Header.jsp"/>
 <jsp:include page="/WEB-INF/views/template/Modal.jsp"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 <div class="container mt-5">
+    <div class="ml-5 mt-2 ">
+        <i class="bi bi-camera"><a href="/modelOCR.do"> 사진으로 검색할래요 !!!</a></i>
+    </div>
     <div class="ml-5">
         <form action="/hashtag.do" method="post">
             <input name='postTag' placeholder="#해시태그" value="${not empty searchTags ? fn:replace(searchTags,'#',',#') : ''}">
@@ -18,6 +23,15 @@
         <a href="#" style="font-style:italic;font-weight: bold;color:sandybrown">#체지방 감소</a>&nbsp;
         <a href="#" style="font-style:italic;font-weight: bold;color:salmon ">#비타민</a>&nbsp;
         <a href="#" style="font-style:italic;font-weight: bold;color:lightskyblue ">#혈당</a>&nbsp;
+    </div >
+    <div class="m-5">
+        <div class="slider1">
+            <div class="slide"><a href="<c:url value="/magazine.do?no=01"/>"><img src="resources/images/thumbnail_img/RedM_Arg.jpg"></a></div>
+            <div class="slide"><a href="<c:url value="/magazine.do?no=02"/>"><img src="resources/images/thumbnail_img/RedM_Col.jpg"></a></div>
+            <div class="slide"><a href="<c:url value="/magazine.do?no=03"/>"><img src="resources/images/thumbnail_img/RedM_Hia.jpg"></a></div>
+            <div class="slide"><a href="<c:url value="/magazine.do?no=04"/>"><img src="resources/images/thumbnail_img/RedM_Pro.jpg"></a></div>
+            <div class="slide"><a href="<c:url value="/magazine.do?no=05"/>"><img src="resources/images/thumbnail_img/YellowM_Mus.jpg"></a></div>
+        </div>
     </div>
 </div>
 <style>
@@ -44,6 +58,18 @@ tagify.on('add', e=> {
 });
 tagify.on('remove', e=> {
     $('#hiddenInput').attr('value',tagify.value.map(function(e){return e.value}));
+});
+
+$(document).ready(function(){
+    $('.slider1').bxSlider({
+        slideWidth: 300,
+        minSlides: 2,
+        maxSlides: 3,
+        slideMargin: 5,
+        auto : true,
+        stopAutoOnClick : true,
+        pager : true,
+    });
 });
 
 </script>

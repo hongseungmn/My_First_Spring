@@ -5,7 +5,6 @@
     body {
         background-color: #fff;
         margin: 0;
-        overflow: hidden;
     }
 
     #drawing_canvas {
@@ -20,7 +19,7 @@
     }
 </style>
 <div class="container">
-    <h3 class="m-5">당뇨병 수치 예측하기</h3>
+    <h3 class="m-5 display-4">당뇨병 수치 예측하기</h3>
     <div class="row">
         <div class="col-6">
             <form id="personInfoForm" class="validation-form" novalidate>
@@ -89,11 +88,12 @@
                 <button class="btn btn-primary btn-lg btn-block" type="submit">예측해보기</button>
             </form>
         </div>
+
         <div class="col-6">
-            <canvas id="drawing_canvas">점수는 !!!</canvas>
+            <span class="model-score display-4"><strong>현재 머신러닝의 <br>예측 정확도는<br> <kbd>70%</kbd> 입니다</strong></span>
+            <canvas id="drawing_canvas"></canvas>
         </div>
     </div>
-
 </div>
 <script>
     $(document).ready(function() {
@@ -102,6 +102,7 @@
             event.stopImmediatePropagation();
 
             var forms = document.getElementsByClassName('validation-form');
+
             Array.prototype.filter.call(forms, (form) => {
                 if (form.checkValidity() === false) {
                     Swal.fire({
@@ -117,7 +118,7 @@
                     var insulin = $('#insulin').val();
                     var skin = $('#skin').val();
                     var preg = $('#preg').val();
-
+                    $('.model-score').hide();
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'center-center',
@@ -148,8 +149,8 @@
                             },
                             success: function (response) {
                                 console.log(response);
-                                console.log(response[1][0][1])
-                                initDrawingCanvas();
+                                console.log(response[1][0][1],typeof response[1][0][1])
+                                initDrawingCanvas((response[1][0][1]*100).toFixed(1));
                                 requestAnimationFrame(loop);
 
                             }
@@ -168,7 +169,8 @@
         viewHeight = 350,
         drawingCanvas = document.getElementById("drawing_canvas"),
         ctx,
-        timeStep = (1/60);
+        timeStep = (1/60),
+        textValue;
 
     Point = function(x, y) {
         this.x = x || 0;
@@ -293,11 +295,11 @@
         exploader,
         phase = 0;
 
-    function initDrawingCanvas() {
+    function initDrawingCanvas(data) {
         drawingCanvas.width = viewWidth;
         drawingCanvas.height = viewHeight;
         ctx = drawingCanvas.getContext('2d');
-
+        textValue = data;
         createLoader();
         createExploader();
         createParticles();
@@ -353,6 +355,8 @@
                 particles.forEach(function(p) {
                     p.draw();
                 });
+                ctx.font = "bold 40px sans-serif";
+                ctx.fillText('발병 확률은 : '+textValue+'%', viewWidth/4, viewHeight/2);
                 break;
         }
     }
