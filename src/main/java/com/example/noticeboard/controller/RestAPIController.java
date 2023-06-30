@@ -23,62 +23,7 @@ public class RestAPIController {
   @Autowired
   private RestTemplate restTemplate;
 
-  @CrossOrigin
-  @PostMapping("/vision/object-detect")
-  public Map objectDetect(@RequestBody Map paramMap) {
-    //401 : 인증 오류시 아래 에러 핸들러 추가
-    restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-    restTemplate.setErrorHandler(new DefaultResponseErrorHandler() {
-      @Override
-      public boolean hasError(ClientHttpResponse response) throws IOException {
-        HttpStatus status = response.getStatusCode();
-        return status.series() == HttpStatus.Series.SERVER_ERROR;
-      }
-    });
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("Authorization", "Bearer ya29.a0AWY7Ckl71XQTJ_oIqUmvF8z98MuNEmSBni3fTo-Ai3uulq65qdb_YvD62ekAm5fZG_toRYvXABt7XJ9th0vcLo4NcFVQBerB4aSf0WtS5PUSCAvLOMek1L3Q_0wF1rYaO1lBpUucrU7VLfkcH6TD_YZIBSQTtG1wZdK4x6TWHPLAPMJsJAfqiAgceaW0haCXhDknbRn_ikA7RiGQvRFiV0sQkhKuuiGFqJF6Qr3YjVCSHkiHem9LT4rYQRbp09F6LAmSLAIudQhSmuRT7vM3VwbhLXSOxutrQL0MinaccD53zm-wD_eznpzMJUzHiljNSECQBpOmWUkR-zhuElvAOPxc_Drw6I8RzUoG-MjzkwsnHkTVebr9_9tRzpfcZLgHAYlCHtmA4vDykZp7fyK7R3XxQ44aCgYKAeQSARASFQG1tDrpGA7Nd6QJ-iyXPQ9IlUCEjA0418");
-    headers.add("x-goog-user-project", "sonic-trail-391102");
-    headers.add("Content-Type", "application/json;charset=utf-8");
-    headers.add("Accept-Language","ko-KR");
 
-    ObjectDetectDTO requestBody = new ObjectDetectDTO();
-    ObjectDetectDTO.Source source = new ObjectDetectDTO.Source();
-
-    source.setImageUri(paramMap.get("url").toString());
-
-    ObjectDetectDTO.Image image = new ObjectDetectDTO.Image();
-    image.setSource(source);
-
-
-    ObjectDetectDTO.Feature feature = new ObjectDetectDTO.Feature();
-    feature.setMaxResults(20);
-    feature.setType(paramMap.get("type").toString());
-
-    ObjectDetectDTO.Request request = new ObjectDetectDTO.Request();
-
-
-    ObjectDetectDTO.ImageContext imageContext  = new ObjectDetectDTO.ImageContext();
-    imageContext.setLanguageHints(Arrays.asList("ko"));
-    request.setImage(image);
-    request.setImageContext(imageContext);
-    request.setFeatures(Arrays.asList(feature));
-    requestBody.setRequests(Arrays.asList(request));
-    HttpEntity entity = new HttpEntity(requestBody,headers);
-    String url = "https://vision.googleapis.com/v1/images:annotate";
-
-    ResponseEntity<Map> responseEntity = restTemplate.exchange(
-            url,//요청 URL
-            HttpMethod.POST, //요청 메소드
-            entity,//HttpEntity(요청 바디와 요청 헤더
-            Map.class
-
-    );
-    System.out.println("응답 코드 : " + responseEntity.getStatusCodeValue());
-    System.out.println("응답 헤더 : " + responseEntity.getHeaders());
-    System.out.println("응답 바디 : " + responseEntity.getBody());
-
-    return responseEntity.getBody();
-  }
 
   @CrossOrigin
   @PostMapping(value = "/files",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -114,7 +59,7 @@ public class RestAPIController {
     });
 
     HttpHeaders headers = new HttpHeaders();
-    headers.add("Authorization", "Bearer ya29.a0AbVbY6O1k4KH1yg2s2ykHCB5ft9AjRt_vykSPHMWOTtGsOk2zwJ_IrF_PZLXtZAwTLrfP6azmfULVClNqh0aG8lQsCvzerukIWfXzQ3XPttqUXvZF7_jSuf6FFGkvMjr0MGCz9PaHUlBpY8fcZtYayjf4WqmBaEdgYtdL4BtXLR9PYSRyACimli9opsQiHGgAgqqhzAnK5NXZXtMqWSaMCEE45l55nMYNH7AWd3CezHtOS87Ff_1FVcCpaDVzhVCcr3-M3B1Mhw0TPpKmH8QK8LwlRqbI53vpy4GCVvjuXtSYRPSN9W5KHlNkmnTUgObpMGY765DqL4Kj_hA2IDXVdYroMW6kUpDjcE0XlLs0tDvuXGKcJelY-At39owb2wXCPsqrWChMdCnH3lxiYfkcoO9tAaCgYKAV4SARASFQFWKvPlO9XGUrKts_BnXmLu5a9gGA0417");
+    headers.add("Authorization", "Bearer ya29.a0AbVbY6OwCu5P4LOKPSEAnC9aNQsokCNRm5Ihy3gyLa_s4ukQz-4ARWk6I4L-aAoCGaMvDRYzIqM3DNfeaZx-O8I-ED1zAD8Z6Etyq_-Hj7PxPSAMoKUBVv40dmX35jCPkA3AcIH_Ip4oIsL5-TK4119p6wTxkIzaMS9IsT2WCVH1kF_7xV1VEZ94QBXVxgpbyo1dQqL7U9DGMUazEHEd3nOhr6DjXhdu7Jtz2BRe7znXp1kSnGiHqWMFYhj_gUaKpJm_BK8MnSmnzZdvhbA4h7b7JT_X6TCFWpVClWPr7JydWfO97krl9dK8PePelBaV1nVaA9Vks-bKAOVTF-nq4XggOL-ayQiWVDcycf91sSJXRox7HjGVRKW5TlOn5F9h5-pb1t4w32CEHUzNbVPI8rdFUQaCgYKAXMSARASFQFWKvPluHJqFG5E4fqEGugN39aFyA0417");
     headers.add("x-goog-user-project", "sonic-trail-391102");
     headers.add("Content-Type", "application/json;charset=utf-8");
     headers.add("Accept-Language","ko-KR");

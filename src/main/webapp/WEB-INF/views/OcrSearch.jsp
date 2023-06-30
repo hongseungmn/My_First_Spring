@@ -12,35 +12,13 @@
     <title>Title</title>
 </head>
 <body>
-<h4>Spring Rest API서버로 데이터 요청2(구글비젼 API-객체 탐지)</h4>
-<button type="button" id="btnGoogleRestApi">이미지 비젼(구글-객체 탐지)</button>
-<h4>Spring Rest API서버로 데이터 요청2(구글비젼 API-OCR)</h4>
+<h4>제품 사진을 등록해주세요</h4>
 <input type="file" name="files"/><br/>
 <img id="preview" style="width:300px;height:200px"/>
 <div style="position: relative;">
   <canvas id="canvas"></canvas>
-  <div id="overlayDiv"></div>
 </div>
 <script>
-  //12] 구글 객체 탐지 REST API 요청
-  $('#btnGoogleRestApi').click(function() {
-    $.ajax({
-      url : "http://localhost:9090/vision/object-detect",
-      dataType : 'json',
-      contentType : "application/json",
-      data : JSON.stringify({url : "https://mblogthumb-phinf.pstatic.net/MjAyMDA5MTVfMjU1/MDAxNjAwMTQ0NTgwODQ5.Xzg4IgMgS_KICETWPBJDTakHMZbeKklypzDq9dZSqcsg.ZecPWVI6L-zSRzMkOhq3KB4tVEQJQcjScInE89lJp1cg.JPEG.sz70000/1600144582220.jpg?type=w800",type:"TEXT_DETECTION"}),
-      method : "post"
-    }).done(function(data) {
-      console.log(data);
-      var texts = data.responses[0]['fullTextAnnotation'];
-      console.log("%s",texts.text);
-      var detectList = data.responses[0]['localizedObjectAnnotations'];
-      $.each(detectList,function(index,item) {
-        console.log("객체명 :%s, 정확도 :%s",item.name,item.score*100+"%");
-      });
-    });
-  });
-
   //13]OCR
   //https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
   //https://developer.mozilla.org/ko/docs/Web/API/FormData/FormData
@@ -79,6 +57,8 @@
           var context = canvas.getContext( "2d" );
           var img = new Image (); //이미지 객체 생성
           img.src = e.target.result; //code.jpg라는 이미지 파일을 로딩 시작
+          var bigestBox = 0;
+          var titleText;
           img.onload = function () {
             //(20,20)을 중심으로 100*100의 사이즈로 이미지를 그림
             canvas.width = img.width;
@@ -87,9 +67,6 @@
             point.forEach(function(item) {
               context.strokeStyle = '#00ff00';
               context.lineWidth = 3;
-              $('#overlayDiv').show();
-              $('#overlayDiv').css('top',item['boundingBox']['vertices'][0]['y']);
-              $('#overlayDiv').css('left',item['boundingBox']['vertices'][0]['x']);
               //console.log("item['paragraphs'].map(function(code) {return code['words']}) : ",item['paragraphs'].map(function(code) {return code['words']}))
               var paragraph =  '';
               item['paragraphs'].forEach(function(code) {
@@ -98,8 +75,9 @@
                     paragraph += last['text'];
                   });
                 });
+                paragraph += ' ';
               });
-              let reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
+              let reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gim;
               let reg2 = /[a-zA-Z0-9]/gim;
               let resultData = paragraph.replace(reg, "");
               resultData = resultData.replace(reg2,"");
@@ -109,10 +87,23 @@
               var start_y = item['boundingBox']['vertices'][0]['y'];
               var end_x = item['boundingBox']['vertices'][2]['x'] - item['boundingBox']['vertices'][0]['x'];
               var end_y =  item['boundingBox']['vertices'][3]['y']- item['boundingBox']['vertices'][0]['y'];
+              var boxSize = Math.abs(end_x * end_y);
+              if(boxSize > bigestBox) {
+                  bigestBox = boxSize;
+                  titleText = resultData;
+              }
               context.strokeRect(start_x,start_y,end_x,end_y);
-              $('#overlayDiv').css('width',end_x-start_x);
-              $('#overlayDiv').css('height',end_y-start_y);
+
             });
+              titleText = titleText.trim();
+              console.log(titleText);
+              if(titleText != '') {
+                  var url = 'https://www.hffinfo.com/search/product?page=1&limit=10&query='+titleText;
+                  window.open(url);
+              }
+              else {
+                  alert("텍스트를 불러올 수 없습니다");
+              }
           }
 
         });
