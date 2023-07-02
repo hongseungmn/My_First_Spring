@@ -20,10 +20,11 @@ public class FunctionalFoodListDTO {
   private Date postDate;
   private String expirationDate;
   private String data;
-  private String packageType;
+  private String intake;
   private String packageWay;
   private String preservation;
   private String caution;
   private String otherText;
   private String standard;
+  private String imgURL;
 }

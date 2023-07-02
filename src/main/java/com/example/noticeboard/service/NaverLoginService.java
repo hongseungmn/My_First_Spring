@@ -5,6 +5,5 @@ import java.util.Map;
 
 public interface NaverLoginService {
   String getAccessToken(String code) throws Throwable;
-
   Map getUserInfo(String access_token);
 }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: hongseongmin
@@ -30,6 +31,40 @@
     border:0;
     height: 3px;
     background-color: #ccc;
+  }
+  .wrap-vertical{
+
+    padding: 20px;
+    overflow: scroll;
+    color: #112031;
+    background: white;
+    /* 가로 스크롤 */
+    white-space: nowrap;
+    height: 300px;
+  }
+  .card {
+    display: inline-flex;
+    margin : 10px;
+    border: none;
+  }
+  .card-footer {
+    border: none;
+    background-color: white;
+    padding: 5px 0 3px 3px;
+    height: 100px;
+    text-overflow: ellipsis;
+  }
+  .card-title {
+    font-size: 12px;
+    color:#a7a4a4;
+  }
+  .card-content {
+
+    width: 100px;
+  }
+  .product-img {
+    border-radius: 20%;
+    border: #ccc solid 1px;
   }
 </style>
 <div class="container mt-5 custom-text">
@@ -100,10 +135,39 @@
     </div>
   </div>
   <hr class="mt-5 my-hr">
-  <div class="mt-5 mb-5">
+  <div class="mt-5 mb-5 jumbotron">
     국내에서는 특정 회사에서 개별적으로 인정받은 아르기닌만이 건강기능식품 인증을 받았는데,
     <span class="highLight">혈관 이완을 통한 혈액 순환 개선을 위해서 하루 6g의 아르기닌을 섭취하도록 권장하고 있어요.</span>
     <span class="underLine">보충제로 복용할 경우 명확하게 정해진 용량은 없지만 보통 1~3g 정도를 시작으로 효과나 부작용에 따라 조절하면서 나에게 맞는 섭취량을 찾아보세요!</span>
   </div>
 </div>
+<div class="container">
+  <span class="custom-text">&#x1F601; 관련 영양제 인기 TOP 10 <i class="bi bi-chat-quote"></i></span>
+  <div class="wrap-vertical">
+    <c:if test="${empty listData}" var="listIsEmpty">
+      등록된 제품이 없습니다
+    </c:if>
+    <c:if test="${not listIsEmpty}">
+      <c:forEach var="record" begin="0" end="10" items="${listData}" >
+        <div class="card" style="width:150px;height:400px;">
+          <c:if test="${not empty record.imgURL}">
+            <a href='/detail.do?no=${record.no}'><img src="${record.imgURL}" style="width:150px;height:150px;" class="img-fluid product-img"></a>
+          </c:if>
+          <c:if test="${empty record.imgURL}">
+            <a href='/detail.do?no=${record.no}'><img src="resources/images/thumbnail_img/No_IMG.jpeg" style="object-fit:fill" class="img-fluid product-img"></a>
+          </c:if>
+          <div class="card-footer" style="white-space:normal">
+            <span class="card-title">${record.marketName}</span><br>
+            <span class="card-content">
+                ${record.productName}
+            </span>
+          </div>
+        </div>
+      </c:forEach>
+    </c:if>
+  </div>
+</div>
+
+
+
 <jsp:include page="/WEB-INF/views/template/Footer.jsp"/>

@@ -66,7 +66,7 @@
                 </tr>
                 <tr>
                     <th scope="row">복용방법</th>
-                    <td>${listOne.packageType}</td>
+                    <td>${listOne.intake}</td>
                 </tr>
                 <tr>
                     <th scope="row">보관용기</th>
