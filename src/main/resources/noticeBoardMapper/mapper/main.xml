@@ -8,7 +8,7 @@
         <where>
             <if test="searchTags != null">
                 <foreach collection="searchTags" item="item" open="(" close=")" separator="AND" index="index">
-                    othertext LIKE CONCAT('%', #{item}, '%')
+                    nutrient LIKE CONCAT('%', #{item}, '%')
                 </foreach>
             </if>
         </where>

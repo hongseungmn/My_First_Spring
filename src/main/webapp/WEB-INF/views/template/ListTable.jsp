@@ -20,7 +20,7 @@
             <div class="card mt-5 ml-5" style="width: 18rem">
                 <img src="test.jpg" alt="" class="card-img-top pt-3">
                 <div class="card-body">
-                    <h1 class="card-title">${record.productName}</h1>
+                    <h1 class="card-title">${record.name}</h1>
                     <p class="card-text">상품 요약</p>
                 </div>
                 <div class="card-footer">

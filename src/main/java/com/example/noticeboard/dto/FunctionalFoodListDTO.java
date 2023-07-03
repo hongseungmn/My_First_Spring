@@ -14,17 +14,18 @@ import java.sql.Date;
 @Alias("functionalFoodListDto")
 public class FunctionalFoodListDTO {
   private int no;
-  private String marketName;
-  private String productName;
-  private String postNo;
-  private Date postDate;
-  private String expirationDate;
-  private String data;
+  private String company;
+  private String name;
+  private long postno;
+  private Date postdate;
+  private String expirationdate;
+  private String shape;
   private String intake;
-  private String packageWay;
+  private String packageway;
   private String preservation;
   private String caution;
-  private String otherText;
-  private String standard;
+  private String nutrient;
+  private String material;
+  private int hitcount;
   private String imgURL;
 }

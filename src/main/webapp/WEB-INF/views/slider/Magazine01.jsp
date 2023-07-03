@@ -157,9 +157,9 @@
             <a href='/detail.do?no=${record.no}'><img src="resources/images/thumbnail_img/No_IMG.jpeg" style="object-fit:fill" class="img-fluid product-img"></a>
           </c:if>
           <div class="card-footer" style="white-space:normal">
-            <span class="card-title">${record.marketName}</span><br>
+            <span class="card-title">${record.company}</span><br>
             <span class="card-content">
-                ${record.productName}
+                ${record.name}
             </span>
           </div>
         </div>
