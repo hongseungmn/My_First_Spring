@@ -51,8 +51,21 @@
         }).done(function(data) {
           console.log("구글 서버로부터 받은 데이터 : ",data);
           console.log(data['responses'][0]['fullTextAnnotation']['text']);
+          var array;
+          var healthArray =Array();
+          var string_health = data['responses'][0]['fullTextAnnotation']['text'];
+          array = string_health.split('\n');
+          console.log(array);
+          var flag = false;
+          for(var str of array) {
+              var juminRule=/^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))-[1-8][0-9]{6}$/;
+              if(juminRule.test(str)) {flag=false;}
+              if(flag) {healthArray.push(str);}
+              if(str === '결과') {flag = true;}
+          }
+          console.log(healthArray);
+
           var point = data['responses'][0]['fullTextAnnotation']['pages'][0]['blocks'];
-          //console.log('%o',point);
           var canvas = document. getElementById ( "canvas" );
           var context = canvas.getContext( "2d" );
           var img = new Image (); //이미지 객체 생성
@@ -81,8 +94,6 @@
               let reg2 = /[a-zA-Z0-9]/gim;
               let resultData = paragraph.replace(reg, "");
               resultData = resultData.replace(reg2,"");
-              console.log("resultData",resultData);
-
               var start_x = item['boundingBox']['vertices'][0]['x'];
               var start_y = item['boundingBox']['vertices'][0]['y'];
               var end_x = item['boundingBox']['vertices'][2]['x'] - item['boundingBox']['vertices'][0]['x'];
@@ -93,19 +104,8 @@
                   titleText = resultData;
               }
               context.strokeRect(start_x,start_y,end_x,end_y);
-
             });
-              titleText = titleText.trim();
-              console.log(titleText);
-              if(titleText != '') {
-                  var url = 'https://www.hffinfo.com/search/product?page=1&limit=10&query='+titleText;
-                  window.open(url);
-              }
-              else {
-                  alert("텍스트를 불러올 수 없습니다");
-              }
           }
-
         });
       };
 
