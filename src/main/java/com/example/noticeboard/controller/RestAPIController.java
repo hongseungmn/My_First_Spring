@@ -59,7 +59,11 @@ public class RestAPIController {
     });
 
     HttpHeaders headers = new HttpHeaders();
+<<<<<<< Updated upstream
     headers.add("Authorization", "Bearer ya29.a0AbVbY6PXY1RYxS0AVtEpXaOOmBewCwtvDkweW5s3Cxa-bxMcbD2JM5e6RGrVinQDZIxwxB8WPX2w7h4UjZ98eObeL2lFQ04Y3U08eYNzaZLZZ2uxyJz1jBctvTfNTcsdc3SH5lF_GjZUwyqYzYosXdjQQ7AN3Yx4DO7pTUlF8qg1gn1zCGbApNxdGsfMXtJwPiGtpvqMJT2c_zxWsoHZ21qnSoVVdk1t1IdvLeZhA6ftd-kjuduHCQx_lMWpqPv3X9lsxzed6urVFNwiBZZpN92SjRFGfn_qQd4J4KdcjeE-decBqykYcP6i_gFiAaGkRR2lBks_PEj0ws1El7MgBPtTipULXDG_THFGq6OQyq6fEquKbmmDqFDmJlDftQcfVwNYI73zsTmIgVVW-2wf5iE1LpkaCgYKAZgSARASFQFWKvPlDQ2nBQ9Q57HV0LNXemuwvA0418");
+=======
+    headers.add("Authorization", "Bearer ya29.a0AbVbY6PL3twKTmRGS3olz--9x1A1bKgKk18pr6FhdFgRVB-ixpkkV3lFQ3wZS_v0PunfBAOKs7HBrfgPCGkXBS6nXBSYEBe1IExZFRhByhmhvWsW72LhC9Baz0_xz0sx-zKRi9hMfWSKXTUBgEqlTQJuFfBtBP1NCoDQUsfwOqV4xWDcuA40mY3cCWItxPPSLNdDB5CW7hejZ_rTe-A16G-KdEj9o-2CL4qX8CE4O2sIo_QUKBEN8KJN8QnVs0r9hXgm4tPDy4I8fzypUc-_KgQH9zIopGFtkA3MUMGWZhFettqSeAtFE2pVlg7XcGVLbuxBiCqtOkodnVYwJTwzn6Aqq245lM2CN_IVS4835WDAJuE8uBHp_67N492HwSs4Pci74oOzviiVLcfYe6e0LL38I0MaCgYKASYSARASFQFWKvPlilQsLgIQUop2dQwp068KHA0418");
+>>>>>>> Stashed changes
     headers.add("x-goog-user-project", "sonic-trail-391102");
     headers.add("Content-Type", "application/json;charset=utf-8");
     headers.add("Accept-Language","ko-KR");
